@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans+Narrow" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://kit.fontawesome.com/57a8a8c892.js" crossorigin="anonymous"></script>
+
+  <title>Validator | Adam Thomas</title>
+
+  <style>
+
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Lora', serif;
+    color: #fff;
+    background-color: #A1268F;
+  }
+
+  #step-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  #step-1-box {
+    position: relative;
+    text-align: center;
+    width: 100%;
+  }
+
+  #input-container {
+    margin: auto;
+    position: relative;
+    max-width: 600px;
+  }
+  input {
+    position: absolute;
+    top: 0;
+    left:0;
+    font-size: 18px;
+    border: 1px solid #fff !important;
+    background-color: rgba(255, 255, 255, 0.2);;
+    color: #fff;
+    width: 100%;
+    padding-right: 62px;
+    font-size: 24px;
+    z-index: 100;
+  }
+  #submit-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 54px; 
+      height: 54px;
+      background-color: #fff;
+      text-align: center;
+      z-index: 200;
+  }
+  #submit-container i {
+      color: #A1268F;
+      margin-top: 4px;
+      line-height: 100%;
+  }
+
+  #codeadam {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 24px;
+    padding: 15px;
+  }
+  #refresh {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-size: 30px;
+    padding: 15px;
+  }
+
+  a:link,
+  a:hover,
+  a:visited,
+  a:active {
+    text-decoration: none;
+  }
+
+  textarea:focus, 
+  input:focus,
+  *:focus {
+    outline: none;
+  }
+    
+  </style>
+
+</head>
+<body>
+
+  <div id="codeadam">
+    <a href="https://codeadam.ca"><img src="https://codeadam.ca/images/code-block-white.png" width="30"></a>
+  </div>
+
+  <div id="refresh">
+    <a href="#" onclick="return refresh();">&#10227;</a>
+  </div>
+
+  <div id="step-1">
+
+    <div id="step-1-box">
+
+      <div class="w3-padding-32">
+        <i class="fas fa-code fa-4x"></i>
+      </div>
+
+      <div class="w3-padding-32" id="input-container">
+        <input class="w3-input" 
+          type="text" 
+          value="https://codeadam.ca" 
+          id="username"
+          autocomplete="off" 
+          autocorrect="off" 
+          autocapitalize="off" 
+          spellcheck="false">
+        <div id="submit-container">
+          <a href="#">
+            <i class="fas fa-arrow-alt-circle-right fa-3x"></i>
+          </a>
+        </div>
+      </div>     
+
+      <div class="">
+        
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+  const delay = 2000
+  const iframeRef = document.getElementById('iframe');
+  const usernameRef = document.getElementById('username');
+  const embedRef = document.getElementById('embed');
+  const copyRef = document.getElementById('copy');
+
+  let timer;
+
+  usernameRef.addEventListener('keyup', () => {
+    clearTimeout(timer);
+    timer = setTimeout(setUsername, delay)
+  });
+
+  function setUsername()
+  {
+    iframeRef.src = 'https://pages.codeadam.ca/github-contributions/' + usernameRef.value;
+    embedRef.value = '<iframe src=\"https://pages.codeadam.ca/github-contributions/' + 
+      usernameRef.value + 
+      '" width="896" height="160" frameborder="0" allowtransparency id="iframe"></iframe>';
+  }
+
+  window.addEventListener('load', () => {
+    setUsername();
+  });
+
+  copyRef.addEventListener('click', (event) => {
+
+    embedRef.contenteditable = true;
+    embedRef.focus();
+    document.execCommand('selectAll');
+    document.execCommand("copy");
+    embedRef.contenteditable = false;
+
+    copyRef.focus();
+
+    event.preventDefault();
+
+  });
+
+  </script>
+
+
+</body>
+</html>
