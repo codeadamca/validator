@@ -25,13 +25,15 @@
     background-color: #A1268F;
   }
 
-  #step-1 {
+  #step-1,
+  #step-2 {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
   }
-  #step-1-box {
+  #step-1-box,
+  #step-2-box {
     position: relative;
     text-align: center;
     width: 100%;
@@ -86,6 +88,10 @@
     padding: 15px;
   }
 
+  #submit-error {
+    height: 14px;
+  }
+
   a:link,
   a:hover,
   a:visited,
@@ -124,7 +130,7 @@
         <input class="w3-input" 
           type="text" 
           value="https://codeadam.ca" 
-          id="username"
+          id="url"
           autocomplete="off" 
           autocorrect="off" 
           autocapitalize="off" 
@@ -134,11 +140,19 @@
             <i class="fas fa-arrow-alt-circle-right fa-3x"></i>
           </a>
         </div>
-      </div>     
+      </div>   
+      
+      <div id="submit-error" class="w3-padding-16"></div>
+      
+    </div>
 
-      <div class="">
-        
-      </div>
+  </div>
+
+  <div id="step-2">
+
+    <div id="step-2-box">
+
+        SCAN!!!
 
     </div>
 
@@ -146,44 +160,60 @@
 
   <script>
 
-  const delay = 2000
-  const iframeRef = document.getElementById('iframe');
-  const usernameRef = document.getElementById('username');
-  const embedRef = document.getElementById('embed');
-  const copyRef = document.getElementById('copy');
+  var step1 = document.getElementById("step-1");
+  var step2 = document.getElementById("step-2");
+  
+  step2.style.display = "none";
 
-  let timer;
+  const submit = document.querySelector('#submit-container a');
+  const error = document.getElementById('submit-error');
+  const url = document.getElementById('url');
+  
+  submit.addEventListener('click', (e) => {
+    
+    
+    let data = JSON.stringify({
+      url: url.value
+    });
 
-  usernameRef.addEventListener('keyup', () => {
-    clearTimeout(timer);
-    timer = setTimeout(setUsername, delay)
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "scrape.php", true); 
+    xhttp.setRequestHeader("Content-Type", "application/json");
+    xhttp.onreadystatechange = function() 
+    {
+      if (this.readyState == 4 && this.status == 200) 
+      {
+        // Response
+        var response = JSON.parse(this.responseText);
+
+        if(response.status == 'error')
+        {
+          error.innerHTML = 'ERROR: ' + response.error;
+        }
+        else
+        {
+          error.innerHTML = "";
+          step1.style.display = "none";
+          step2.style.display = "flex";
+        }
+
+      }
+    };
+
+    xhttp.send(data);
+
+    e.preventDefault();
+
   });
 
-  function setUsername()
+  function refresh()
   {
-    iframeRef.src = 'https://pages.codeadam.ca/github-contributions/' + usernameRef.value;
-    embedRef.value = '<iframe src=\"https://pages.codeadam.ca/github-contributions/' + 
-      usernameRef.value + 
-      '" width="896" height="160" frameborder="0" allowtransparency id="iframe"></iframe>';
+    error.innerHTML = "";
+    step1.style.display = "flex";
+    step2.style.display = "none";
+    url.value = "https://codeadam.ca";
+    return false;
   }
-
-  window.addEventListener('load', () => {
-    setUsername();
-  });
-
-  copyRef.addEventListener('click', (event) => {
-
-    embedRef.contenteditable = true;
-    embedRef.focus();
-    document.execCommand('selectAll');
-    document.execCommand("copy");
-    embedRef.contenteditable = false;
-
-    copyRef.focus();
-
-    event.preventDefault();
-
-  });
 
   </script>
 
