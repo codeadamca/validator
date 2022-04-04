@@ -50,7 +50,7 @@
     left:0;
     font-size: 18px;
     border: 1px solid #fff !important;
-    background-color: rgba(255, 255, 255, 0.2);;
+    background-color: rgba(255, 255, 255, 0.2);
     color: #fff;
     width: 100%;
     padding-right: 62px;
@@ -79,6 +79,7 @@
     right: 0;
     font-size: 24px;
     padding: 15px;
+    z-index: 10000;
   }
   #refresh {
     position: fixed;
@@ -104,11 +105,32 @@
   *:focus {
     outline: none;
   }
+
+  .ribbon-1 {
+    width:250px;
+    text-align: center;
+    font-size: 125%;
+    position: fixed;
+    top: 40px;
+    left: -60px; 
+    transform: rotate(-45deg);
+    background: rgba(255, 255, 255, 0.2);
+    clip-path: inset(0 -100%);
+    padding: 5px;
+  }
+  .fa-spin {
+    animation-duration: 5s;
+  }
     
   </style>
 
 </head>
 <body>
+
+  <div class="ribbon-1">
+    <i class="fas fa-cog fa-spin"></i>
+    In Progress
+  </div>
 
   <div id="codeadam">
     <a href="https://codeadam.ca"><img src="https://codeadam.ca/images/code-block-white.png" width="30"></a>
