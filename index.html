@@ -122,6 +122,31 @@
   .fa-spin {
     animation-duration: 5s;
   }
+
+  #results {
+    border-collapse: collapse;
+    max-width: 600px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  #result tr {
+    border: none;
+  }
+  #results td {
+    border: 2px solid #fff;
+    padding: 10px;
+    border-collapse: collapse;
+    font-size: 24px;
+  }
+  #results td:nth-child(1),
+  #results td:nth-child(3) {
+    text-align: center;
+    max-width: 40px;
+  }
+  #results td:nth-child(1) {
+    background-color: #fff;
+    color: #A1268F;
+  }
     
   </style>
 
@@ -179,7 +204,7 @@
 
     <div id="step-2-box">
 
-        SCAN!!!
+      <i class="fas fa-cog fa-spin fa-6x"></i>
 
     </div>
 
@@ -203,6 +228,10 @@
       url: url.value
     });
 
+    error.innerHTML = "";
+    step1.style.display = "none";
+    step2.style.display = "flex";
+
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "scrape.php", true); 
     xhttp.setRequestHeader("Content-Type", "application/json");
@@ -210,18 +239,31 @@
     {
       if (this.readyState == 4 && this.status == 200) 
       {
-        // Response
+
         var response = JSON.parse(this.responseText);
 
         if(response.status == 'error')
         {
+          step1.style.display = "flex";
+          step2.style.display = "none";
+
           error.innerHTML = 'ERROR: ' + response.error;
         }
         else
         {
-          error.innerHTML = "";
-          step1.style.display = "none";
-          step2.style.display = "flex";
+          step2.innerHTML = `<table id="results">
+              <tr>
+                <td><i class="fas fa-${response.html_errors ? 'check' : 'times'}-circle fa-2x"></i></td>
+                <td>W3C HTML Errors:</td>
+                <td>${response.html_errors}</td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-${response.html_warnings ? 'check' : 'times'}-circle fa-2x"></i></td>
+                <td>W3C HTML Warnings:</td>
+                <td>${response.html_warnings}</td>
+              </tr>
+            </table>`;
+
         }
 
       }
