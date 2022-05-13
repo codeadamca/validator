@@ -253,12 +253,12 @@
         {
           step2.innerHTML = `<table id="results">
               <tr>
-                <td><i class="fas fa-${response.html_errors ? 'check' : 'times'}-circle fa-2x"></i></td>
+                <td><i class="fas fa-${response.html_errors ? 'times' : 'check'}-circle fa-2x"></i></td>
                 <td>W3C HTML Errors:</td>
                 <td>${response.html_errors}</td>
               </tr>
               <tr>
-                <td><i class="fas fa-${response.html_warnings ? 'check' : 'times'}-circle fa-2x"></i></td>
+                <td><i class="fas fa-${response.html_warnings ? 'times' : 'check'}-circle fa-2x"></i></td>
                 <td>W3C HTML Warnings:</td>
                 <td>${response.html_warnings}</td>
               </tr>
