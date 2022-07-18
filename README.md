@@ -1,4 +1,4 @@
-# validator
+# A Basic Sample Assignment using the W3C Validator
 
 A PHP and JavaScript tool to validate a webpage against a variety of requirements. 
 
