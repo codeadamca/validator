@@ -6,6 +6,8 @@ The Validator tool is available to view at:
 
 https://pages.codeadam.ca/validator
 
+![Validator](https://github.com/codeadamca/validator/blob/main/screenshot-validator.png?raw=true)
+
 ## Requirements:
 
 * [W3C Markup Validator](https://validator.w3.org/)
