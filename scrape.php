@@ -1,8 +1,7 @@
 <?php
 
-// $_POST = json_decode(file_get_contents('php://input'), true);
-
-$_POST['url'] = 'https://pages.codeadam.ca/';
+$_POST = json_decode(file_get_contents('php://input'), true);
+// $_POST['url'] = 'https://pages.codeadam.ca/';
 
 if(isset($_POST['url'])) $html_url = $_POST['url'];
 else $html_url = 'https://codeadam.ca/';
