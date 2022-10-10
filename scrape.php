@@ -49,6 +49,8 @@ curl_close($ch);
 $data['html_errors'] = substr_count($validate, 'class="error"');
 $data['html_warnings'] = substr_count($validate, 'class="info warning"');
 
+$data['block_count'] = 0;
+
 // Count inline elements
 $block = array(
   'address' => 0,
@@ -93,8 +95,14 @@ foreach( $block as $tag => $count )
   // echo substr_count( $html, '<'.$tag );
   // echo '<br>';
   $count = substr_count( $html, '<'.$tag );
-  if( $count ) $data['block'][$tag] = $count;
+  if( $count ) 
+  {
+    $data['block'][$tag] = $count;
+    $data['block_count'] += $count;
+  }
 }
+
+$data['inline_count'] = 0;
 
 $inline = array(
   'a' => 0,
@@ -138,7 +146,11 @@ foreach( $inline as $tag => $count )
   // echo substr_count( $html, '<'.$tag );
   // echo '<br>';
   $count = substr_count( $html, '<'.$tag );
-  if( $count ) $data['inline'][$tag] = $count;
+  if( $count ) 
+  {
+    $data['inline'][$tag] = $count;
+    $data['inline_count'] += $count;
+  }
 }
 
 die(json_encode($data));

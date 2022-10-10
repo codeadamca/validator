@@ -261,7 +261,7 @@
         }
         else
         {
-          step2.innerHTML = `<table id="results">
+          let html = `<table id="results">
               <tr>
                 <td><i class="fas fa-${response.html_errors ? 'times' : 'check'}-circle fa-2x"></i></td>
                 <td>W3C HTML Errors:</td>
@@ -272,8 +272,47 @@
                 <td>W3C HTML Warnings:</td>
                 <td>${response.html_warnings}</td>
               </tr>
+              <tr>
+                <td><i class="fas fa-hashtag fa-2x"></i></td>
+                <td>Block Tags:</td>
+                <td>${response.block_count}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td colspan="2">
+                  <small>`;
+
+          for( const property in response.block ) 
+          {
+            // console.log(`${property}: ${response.block[property]}`);
+            html += `${property}(${response.block[property]}) `
+          }
+            
+          html += `</small>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-hashtag fa-2x"></i></td>
+                <td>Inline Tags:</td>
+                <td>${response.inline_count}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td colspan="2">
+                  <small>`;
+
+          for( const property in response.inline ) 
+          {
+            // console.log(`${property}: ${response.block[property]}`);
+            html += `${property}(${response.inline[property]}) `
+          }
+            
+          html += `</small>
+                </td>
+              </tr>
             </table>`;
 
+          step2.innerHTML = html;
         }
 
       }
