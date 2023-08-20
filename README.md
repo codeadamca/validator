@@ -2,9 +2,8 @@
 
 A PHP and JavaScript tool to validate a webpage against a variety of requirements. 
 
-The Validator tool is available to view at:
-
-https://pages.codeadam.ca/validator
+> The Validator tool is available to view at:  
+> https://pages.codeadam.ca/validator
 
 ![Validator](_readme/screenshot-validator.png)
 
